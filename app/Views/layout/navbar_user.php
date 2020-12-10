@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/user/">Tugas Besar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <?php
+                if (isset($jenis)) :
+
+                ?>
+                    <ul class="navbar-nav">
+                        <!-- <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li> -->
+
+                        <?php foreach ($jenis as $j) : ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/user/home?j=<?= $j['id_jenis']; ?>"><?= $j['nama_jenis']; ?></a>
+                            </li>
+                        <?php endforeach; ?>
+
+                    </ul>
+
+                <?php endif; ?>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Urutkan
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/user/home?har=asc">termurah</a>
+                        <a class="dropdown-item" href="/user/home?har=desc">termahal</a>
+                        <a class="dropdown-item" href="/user/home?rat=desc">terpopuler</a>
+                        <a class="dropdown-item" href="/user/home?id=desc">terbaru</a>
+                        <a class="dropdown-item" href="/user/home?id=asc">terlama</a>
+                    </div>
+                </li>
+
+
+                <form action="/user/home" method="GET" class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="cari produk" name="s">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">cari</button>
+                </form>
+            </ul>
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Login</button>
+            <button type="button" class="btn btn-secondary">Daftar</button>
+        </div>
+    </div>
+</nav>

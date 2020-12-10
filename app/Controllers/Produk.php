@@ -122,46 +122,100 @@ class Produk extends BaseController
     {
         // jika $id di isi berarti maskud nya adalah untuk meng ubah data
         // jika kosong berarti menambah data
-        if (!$this->validate([
-            'nama'     => 'required',
-            'deskripsi' => 'required',
-            'stok'     => 'required',
-            'harga'    => 'required',
-            'jenis'    => 'required',
-            'kategori' => 'required',
+        $isEdit = ($id);
 
-            'gambar_1' => [
-                'rules' => 'uploaded[gambar_1]|max_size[gambar_1,1024]|is_image[gambar_1]|mime_in[gambar_1,image/jpg,image/jpeg,image/png]',
-                'errors' => [
-                    'uploaded' => 'pilih gambar n terlebih dahulu',
-                    'max_size' => 'ukuran gambar terlalu besar',
-                    'is_image' => 'yang anda pilih bukan gambar',
-                    'mime_in'  => 'yang anda pilih bukan gambar'
+        if ($isEdit) {
+            if (!$this->validate([
+                'nama'     => 'required',
+                'deskripsi' => 'required',
+                'stok'     => 'required',
+                'harga'    => 'required',
+                'jenis'    => 'required',
+                'kategori' => 'required',
+
+            ])) {
+                // jika id di isi kembalikan lagi ke halaman edit
+                return redirect()->to("/produk/edit/$id")->withInput();
+            }
+        } else {
+            if (!$this->validate([
+                'nama'     => 'required',
+                'deskripsi' => 'required',
+                'stok'     => 'required',
+                'harga'    => 'required',
+                'jenis'    => 'required',
+                'kategori' => 'required',
+                'gambar_1' => [
+                    'rules' => 'uploaded[gambar_1]|max_size[gambar_1,1024]|is_image[gambar_1]|mime_in[gambar_1,image/jpg,image/jpeg,image/png]',
+                    'errors' => [
+                        'uploaded' => 'gambar 1 wajib di isi',
+                        'max_size' => 'ukuran gambar terlalu besar',
+                        'is_image' => 'yang anda pilih bukan gambar',
+                        'mime_in'  => 'yang anda pilih bukan gambar'
+                    ]
                 ]
-            ]
 
-        ])) {
-            // jika id di isi kembalikan lagi ke halaman edit
-            $target = ($id) ? "/produk/edit/$id" : "/produk/create";
-            return redirect()->to($target)->withInput();
+            ])) {
+                return redirect()->to("/produk/create")->withInput();
+            }
         }
+
 
         $listIdKategori = $this->request->getVar('kategori');
         $listIdUkuran = $this->request->getVar('ukuran');
+        $daftarNamaGambar = [];
+
+        if ($isEdit) {
+            // 5 adalah jumlah maksimal gambar di tabel
+            $tempData = $this->produkModel->getById($id);
+
+            for ($i = 0; $i < 5; $i++) {
+                $key = "gambar_" . ($i + 1);
+                $fileGambar = $this->request->getFile($key);
+                $gambarLama = $tempData[0]['gambar'][$key];
+
+                try {
+                    $namaGambar = $key . "_" . $fileGambar->getRandomName();
+                    $fileGambar->move('img', $namaGambar);
+                    $daftarNamaGambar[$i] = $namaGambar;
+
+                    if ($gambarLama != null) unlink('img/' . $gambarLama);
+                } catch (Exception $e) {
+                    $namaGambar = $gambarLama;
+                    $daftarNamaGambar[$i] = $namaGambar;
+                }
+            }
+        } else {
+            // 5 adalah jumlah maksimal gambar di tabel
+
+            for ($i = 0; $i < 5; $i++) {
+                $key = "gambar_" . ($i + 1);
+                $fileGambar = $this->request->getFile($key);
+                try {
+                    $namaGambar = $key . "_" . $fileGambar->getRandomName();
+
+                    $fileGambar->move('img', $namaGambar);
+                    $daftarNamaGambar[$i] = $namaGambar;
+                } catch (Exception $e) {
+                    $daftarNamaGambar[$i] = null;
+                }
+            }
+        }
 
 
 
-
+        /* 
         $fileGambar_1 = $this->request->getFile('gambar_1');
         $namaGambar_1 = "gambar_1_" . $fileGambar_1->getRandomName();
         $fileGambar_1->move('img', $namaGambar_1);
+*/
 
         $gambar = [
-            "gambar_1" => $namaGambar_1,
-            "gambar_2" => $this->request->getVar('gambar_2') ?? null,
-            "gambar_3" => $this->request->getVar('gambar_3') ?? null,
-            "gambar_4" => $this->request->getVar('gambar_4') ?? null,
-            "gambar_5" => $this->request->getVar('gambar_5') ?? null,
+            "gambar_1" => $daftarNamaGambar[0],
+            "gambar_2" => $daftarNamaGambar[1],
+            "gambar_3" => $daftarNamaGambar[2],
+            "gambar_4" => $daftarNamaGambar[3],
+            "gambar_5" => $daftarNamaGambar[4],
         ];
 
         $produk = [

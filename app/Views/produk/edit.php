@@ -20,45 +20,121 @@ $k_2 = $kategori;
 
 
 <div class="container">
-    <form action="/produk/save/<?= $p['id_produk']; ?>" method="POST">
+    <form action="/produk/save/<?= $p['id_produk']; ?>" method="POST" enctype="multipart/form-data">
         <?= csrf_field(); ?>
-        <div class="form-group row">
-            <label for="gambar_1" class="col-sm-2 col-form-label">Gambar 1</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control <?= ($validation->hasError('gambar_1')) ? 'is-invalid' : ''; ?>" id="gambar_1" name="gambar_1" value="<?= (old('gambar_1')) ?? $g['gambar_1']; ?>">
-                <div class="invalid-feedback">
-                    <?= $validation->getError('gambar_1'); ?>
+
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/<?= $g['gambar_1'] ?? "default_upload_img.png"; ?>" class="img-thumbnail img-preview_1" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_1')) ? 'is-invalid' : ''; ?>" id="gambar_1" name="gambar_1" onchange="previewImg('#gambar_1','.label_gambar_1','.img-preview_1')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_1'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_1" for="gambar_1">Gambar 1</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/<?= $g['gambar_2'] ?? "default_upload_img.png"; ?>" class="img-thumbnail img-preview_2" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_2')) ? 'is-invalid' : ''; ?>" id="gambar_2" name="gambar_2" onchange="previewImg('#gambar_2','.label_gambar_2','.img-preview_2')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_2'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_2" for="gambar_2">Gambar 2</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/<?= $g['gambar_3'] ?? "default_upload_img.png"; ?>" class="img-thumbnail img-preview_3" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_3')) ? 'is-invalid' : ''; ?>" id="gambar_3" name="gambar_3" onchange="previewImg('#gambar_3','.label_gambar_3','.img-preview_3')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_3'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_3" for="gambar_3">Gambar 3</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/<?= $g['gambar_4'] ?? "default_upload_img.png"; ?>" class="img-thumbnail img-preview_4" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_4')) ? 'is-invalid' : ''; ?>" id="gambar_4" name="gambar_4" onchange="previewImg('#gambar_4','.label_gambar_4','.img-preview_4')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_4'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_4" for="gambar_4">Gambar 4</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/<?= $g['gambar_5'] ?? "default_upload_img.png"; ?>" class="img-thumbnail img-preview_5" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_5')) ? 'is-invalid' : ''; ?>" id="gambar_5" name="gambar_5" onchange="previewImg('#gambar_5','.label_gambar_5','.img-preview_5')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_5'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_5" for="gambar_5">Gambar 5</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <div class="form-group row">
-            <label for="gambar_2" class="col-sm-2 col-form-label">Gambar 2</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="gambar_2" name="gambar_2" value="<?= (old('gambar_2')) ?? $g['gambar_2']; ?>">
-            </div>
-        </div>
 
-        <div class=" form-group row">
-            <label for="gambar_3" class="col-sm-2 col-form-label">Gambar 3</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="gambar_3" name="gambar_3" value="<?= (old('gambar_3')) ?? $g['gambar_3']; ?>">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="gambar_4" class="col-sm-2 col-form-label">Gambar 4</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="gambar_4" name="gambar_4" value="<?= (old('gambar_4')) ?? $g['gambar_4']; ?>">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="gambar_5" class="col-sm-2 col-form-label">Gambar 5</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="gambar_5" name="gambar_5" value="<?= (old('gambar_5')) ?? $g['gambar_5']; ?>">
-            </div>
-        </div>
 
         <div class="form-group row">
             <label for="nama" class="col-sm-2 col-form-label">Nama</label>

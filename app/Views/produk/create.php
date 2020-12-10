@@ -1,42 +1,121 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
 
-<?php d(old('gambar_1')) ?>
 <div class="container">
     <form action="/produk/save" method="POST" enctype="multipart/form-data">
         <?= csrf_field(); ?>
 
-        <div class="form-group row">
-            <div class="input-group mb-3">
-                <div class="col-sm-2">
-                    <img src="/img/default_upload_img.png" class="img-thumbnail img-preview" alt="">
-                </div>
+        <div class="row justify-content-center">
 
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_1')) ? 'is-invalid' : ''; ?>" id="gambar_1" name="gambar_1" onchange="previewImg('#gambar_1','.label_gambar_1','.img-preview')">
-                    <div class=" invalid-feedback">
-                        <?= $validation->getError('gambar_1'); ?>
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/default_upload_img.png" class="img-thumbnail img-preview_1" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_1')) ? 'is-invalid' : ''; ?>" id="gambar_1" name="gambar_1" onchange="previewImg('#gambar_1','.label_gambar_1','.img-preview_1')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_1'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_1" for="gambar_1">Gambar 1</label>
+                            </div>
+                        </div>
                     </div>
-                    <label class="custom-file-label label_gambar_1" for="gambar_1" aria-describedby="inputGroupFileAddon02">Gambar 1</label>
                 </div>
             </div>
+
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/default_upload_img.png" class="img-thumbnail img-preview_2" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_2')) ? 'is-invalid' : ''; ?>" id="gambar_2" name="gambar_2" onchange="previewImg('#gambar_2','.label_gambar_2','.img-preview_2')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_2'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_2" for="gambar_2">Gambar 2</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/default_upload_img.png" class="img-thumbnail img-preview_3" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_3')) ? 'is-invalid' : ''; ?>" id="gambar_3" name="gambar_3" onchange="previewImg('#gambar_3','.label_gambar_3','.img-preview_3')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_3'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_3" for="gambar_3">Gambar 3</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/default_upload_img.png" class="img-thumbnail img-preview_4" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_4')) ? 'is-invalid' : ''; ?>" id="gambar_4" name="gambar_4" onchange="previewImg('#gambar_4','.label_gambar_4','.img-preview_4')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_4'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_4" for="gambar_4">Gambar 4</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md">
+                <div class="form-group row-sm-2">
+                    <div class="input-group mb-3">
+
+                        <div class="row-md">
+                            <img src="/img/default_upload_img.png" class="img-thumbnail img-preview_5" alt="" width="200">
+                        </div>
+
+                        <div class="row-md">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input  <?= ($validation->hasError('gambar_5')) ? 'is-invalid' : ''; ?>" id="gambar_5" name="gambar_5" onchange="previewImg('#gambar_5','.label_gambar_5','.img-preview_5')">
+                                <div class=" invalid-feedback">
+                                    <?= $validation->getError('gambar_5'); ?>
+                                </div>
+                                <label class="custom-file-label label_gambar_5" for="gambar_5">Gambar 5</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- 
 
-        <div class="card custom-file mb-3" style="width: 8rem; height: 8rem;">
-            <input type="file" class="custom-file-input" id="gambar_1" name="gambar_1" required>
-            <label class=" custom-file-label" for="gambar_1">
-
-            </label>
-        </div>
- -->
-
-
-
-
-
-
+        <!--
         <div class="form-group row">
             <label for="gambar_2" class="col-sm-2 col-form-label">Gambar 2</label>
             <div class="col-sm-10">
@@ -64,6 +143,8 @@
                 <input type="text" class="form-control" id="gambar_5" name="gambar_5" value="<?= old('gambar_5'); ?>">
             </div>
         </div>
+-->
+
 
         <div class="form-group row">
             <label for="nama" class="col-sm-2 col-form-label">Nama</label>

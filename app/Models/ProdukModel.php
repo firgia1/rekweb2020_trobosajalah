@@ -253,6 +253,7 @@ class ProdukModel extends Model
             $listKategori = $data['kategori'];
             $listUkuran = $data['ukuran'];
             $listHarga = $data['harga'];
+            $listDiskon = $data['diskon'];
 
             $insertGambar = ["id_produk" => $idProduk];
             $insertGambar += $listGambar;
@@ -263,18 +264,11 @@ class ProdukModel extends Model
             $insertUkuran = ["id_produk" => $idProduk];
             $insertUkuran += $listUkuran;
 
-            $insertHarga = [
-                "id_produk" => $idProduk,
-                "harga_normal" => $listHarga['harga_normal'],
-                "harga_diskon" => null,
-                "harga_saat_ini" => $listHarga['harga_normal']
-            ];
+            $insertDiskon = ["id_produk" => $idProduk];
+            $insertDiskon += $listDiskon;
 
-            $insertDiskon = [
-                "id_produk" => $idProduk,
-                "diskon_persen" => null,
-                "total_produk" => null
-            ];
+            $insertHarga = ["id_produk" => $idProduk];
+            $insertHarga += $listHarga;
 
             $insertRating = [
                 "id_produk" => $idProduk,
@@ -299,10 +293,11 @@ class ProdukModel extends Model
     {
 
         $insertTableProduk = $data['produk'];
-
+        $listHarga = $data['harga'];
         $listGambar = $data['gambar'];
         $listKategori = $data['kategori'];
         $listUkuran = $data['ukuran'];
+        $listDiskon = $data['diskon'];
 
         $insertGambar = ["id_produk" => $idProduk];
         $insertGambar += $listGambar;
@@ -312,6 +307,13 @@ class ProdukModel extends Model
 
         $insertUkuran = ["id_produk" => $idProduk];
         $insertUkuran += $listUkuran;
+
+        $insertDiskon = ["id_produk" => $idProduk];
+        $insertDiskon += $listDiskon;
+
+
+        $insertHarga = ["id_produk" => $idProduk];
+        $insertHarga += $listHarga;
 
         $insertRating = [
             "id_produk" => $idProduk,
@@ -327,6 +329,8 @@ class ProdukModel extends Model
         $this->db->table("produk_gambar")->update($insertGambar, ["id_produk" => $idProduk]);
         $this->db->table("produk_kategori")->update($insertKategori, ["id_produk" => $idProduk]);
         $this->db->table("produk_ukuran")->update($insertUkuran, ["id_produk" => $idProduk]);
+        $this->db->table("produk_harga")->update($insertHarga, ["id_produk" => $idProduk]);
+        $this->db->table("produk_diskon")->update($insertDiskon, ["id_produk" => $idProduk]);
         $this->db->table("produk_rating")->update($insertRating, ["id_produk" => $idProduk]);
     }
 }

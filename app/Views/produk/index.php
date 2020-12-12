@@ -13,6 +13,12 @@
             <?= session()->getFlashdata('pesan'); ?>
         </div>
     <?php endif; ?>
+
+    <?php if ($produk == null) {
+        echo "<h3>Tidak ada data</h3>";
+        die();
+    } ?>
+
     <div class="row">
         <div class="col">
             <a href="/produk/create" class="btn btn-primary mt-3">Tambah Data</a>

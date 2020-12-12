@@ -203,13 +203,6 @@ class Produk extends BaseController
         }
 
 
-
-        /* 
-        $fileGambar_1 = $this->request->getFile('gambar_1');
-        $namaGambar_1 = "gambar_1_" . $fileGambar_1->getRandomName();
-        $fileGambar_1->move('img', $namaGambar_1);
-*/
-
         $gambar = [
             "gambar_1" => $daftarNamaGambar[0],
             "gambar_2" => $daftarNamaGambar[1],
@@ -227,8 +220,32 @@ class Produk extends BaseController
             'id_jenis'         => $this->request->getVar('jenis') ?? null,
         ];
 
+        $harga_normal = $this->request->getVar('harga') ?? null;
+        $harga_diskon = null;
+        $harga_saat_ini = null;
+
+        $diskon_persen = $this->request->getVar('diskon_persen') ?? null;
+        $total_produk = $this->request->getVar('total_produk') ?? null;;
+
+        if ($diskon_persen != null) {
+            $harga_diskon = $harga_normal - (($diskon_persen / 100) * $harga_normal);
+            $harga_saat_ini = $harga_diskon;
+
+            if ($total_produk == null) $total_produk =  $this->request->getVar('stok');
+        } else {
+            $total_produk = null;
+            $harga_saat_ini = $harga_normal;
+        }
+
+        $diskon = [
+            'diskon_persen' => $diskon_persen,
+            'total_produk'  => $total_produk
+        ];
+
         $harga = [
-            'harga_normal'    => $this->request->getVar('harga') ?? null
+            'harga_normal'    => $harga_normal,
+            'harga_diskon'    => $harga_diskon,
+            'harga_saat_ini'  => $harga_saat_ini
         ];
 
         $kategori = [
@@ -251,7 +268,8 @@ class Produk extends BaseController
             "gambar" => $gambar,
             "harga"   => $harga,
             "kategori" => $kategori,
-            "ukuran" => $ukuran
+            "ukuran" => $ukuran,
+            "diskon" => $diskon
         ];
 
         if ($id) {

@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template'); ?>
 <?= $this->section('content'); ?>
 <?= $this->include('layout/navbar_user'); ?>
-<div class="container">
+<div class="container mt-5 mb-5">
 
 
     <div class="row">
@@ -23,7 +23,7 @@
         $k_2 = $kategori;
         ?>
         <!-- ini bagian kiri  -->
-        <div class="col-sm-4 mx-auto">
+        <div class="col-sm-4">
 
 
             <!-- gambar utama -->
@@ -50,65 +50,108 @@
 
         <!-- ini bagian kanan  -->
         <div class="col-sm-8">
-            <h5 class="font-weight-bold"><?= $p["nama_produk"]; ?></h5>
-            <h5>rating : <?= $r["total_rating"]; ?></h5>
-            <h5>terjual : <?= $p["total_pesanan"]; ?></h5>
-            <div class="divider"></div>
+            <h4 class="font-weight-bold"><?= $p["nama_produk"]; ?></h4>
+            <h5><?= $p["jenis"]; ?></h5>
+            <div class="row">
+                <div class="col-md-2">
+                    <?php for ($i = 0; $i < 5; $i++) : ?>
+                        <img src="/assets/img/<?= ($r['total_rating'] > $i) ? 'star_true.png' : 'star_false.png'; ?>" width="15">
+                    <?php endfor; ?>
 
-            <?php if ($d["diskon_persen"] !== null && $d["diskon_persen"] !== 0) : ?>
-                <h5>diskon : <?= $d["diskon_persen"]; ?> %</h5>
-                <h5>sisa diskon : untuk <?= $d["total_produk"]; ?> produk</h5>
-                <h5>harga normal : <?= $h["harga_normal"]; ?></h5>
+                </div>
 
-            <?php endif ?>
+                <div class="col-md-10">
+                    <p class="text-secondary font-weight-normal">terjual sebanyak <?= $p["total_pesanan"]; ?> produk</p>
+                </div>
+            </div>
 
-            <h5>harga : <?= $h["harga_saat_ini"]; ?></h5>
+            <hr>
 
-            <h5>terjual : <?= $p["total_pesanan"]; ?></h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <h4 class="text-dark card-text font-weight-bold">Harga</h4>
+                </div>
 
-            <h5>stok : <?= $p["stok_produk"]; ?></h5>
-            <h5>deskripsi : <?= $p["deskripsi_produk"]; ?></h5>
-            <h5>jenis : <?= $p["jenis"]; ?></h5>
+                <div class="col-md-9">
+                    <h5 class="text-primary card-text font-weight-bold">Rp. <?= number_format($h["harga_saat_ini"]); ?></h5>
+
+                    <?php if ($d['diskon_persen'] != null || $d['diskon_persen'] > 0) : ?>
+                        <h6 class="text-secondary font-weight-light"><s> Rp. <?= number_format($h["harga_normal"]); ?></s></h6>
+
+                        <div class="row">
+                            <div class="col-md-1">
+                                <h5 class="badge badge-success"><?= $d["diskon_persen"]; ?> %</h5>
+                            </div>
+                            <div class="col-md-11">
+                                <p class="text-secondary font-weight-light">diskon tersedia untuk <?= $d["total_produk"]; ?> produk</p>
+                            </div>
+                        </div>
+
+                    <?php endif; ?>
+
+                </div>
+            </div>
+            <hr>
 
 
 
-            <h3>ukuran</h3>
-            <ul>
-                <?php
-                $maxCol = 6;
-                for ($i = 0; $i < $maxCol; $i++) {
-                    $id_ukuran = $u["id_ukuran_" . ($i + 1)];
-                    if ($id_ukuran  !== null && trim($id_ukuran, "") !== "") {
-                        foreach ($u_2 as $ukuran) {
-                            if ($ukuran['id_ukuran'] == $id_ukuran) { ?>
-                                <li>
-                                    <h5><?= $ukuran['nama_ukuran']; ?></h5>
-                                </li>
-                <?php }
-                        }
-                    }
-                } ?>
-            </ul>
+            <div class="row">
+                <div class="col-md-3">
+                    <h4 class="text-dark card-text font-weight-bold">Info Produk</h4>
+                </div>
 
-            <h3>kategori</h3>
-            <ul>
-                <?php
-                $maxCol = 3;
-                for ($i = 0; $i < $maxCol; $i++) {
-                    $id_kategori = $k["id_kategori_" . ($i + 1)];
-                    if ($id_kategori  !== null && trim($id_kategori, "") !== "") {
-                        foreach ($k_2 as $kategori) {
-                            if ($kategori['id_kategori'] == $id_kategori) { ?>
-                                <li>
-                                    <h5><?= $kategori['nama_kategori']; ?></h5>
-                                </li>
-                <?php }
-                        }
-                    }
-                } ?>
-            </ul>
+                <div class="col-md-9">
+                    <h3>
+                        <small class="text-muted">tersedia</small>
+                        <p class="badge badge-warning"><?= $p["stok_produk"]; ?></p>
+                        <small class="text-muted">produk</small>
+                    </h3>
+                    <hr>
+
+                    <h3>kategori</h3>
+                    <div class="row">
+                        <?php $maxCol = 3 ?>
+                        <?php for ($i = 0; $i < $maxCol; $i++) : ?>
+                            <?php $id_kategori = $k["id_kategori_" . ($i + 1)]; ?>
+                            <?php if ($id_kategori  !== null && trim($id_kategori, "") !== "") : ?>
+                                <?php foreach ($k_2 as $kategori) : ?>
+                                    <?php if ($kategori['id_kategori'] == $id_kategori) : ?>
+                                        <p class="col-md-2 badge badge-info ml-2 mr-2 pt-2 pb-2"><?= $kategori['nama_kategori']; ?></p>
+
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                    <hr>
+
+
+                    <h3>ukuran</h3>
+                    <div class="row">
+                        <?php $maxCol = 6 ?>
+                        <?php for ($i = 0; $i < $maxCol; $i++) : ?>
+                            <?php $id_ukuran = $u["id_ukuran_" . ($i + 1)]; ?>
+                            <?php if ($id_ukuran  !== null && trim($id_ukuran, "") !== "") : ?>
+                                <?php foreach ($u_2 as $ukuran) : ?>
+                                    <?php if ($ukuran['id_ukuran'] == $id_ukuran) : ?>
+                                        <p class="col-md-2 badge badge-info ml-2 mr-2 pt-2 pb-2"><?= $ukuran['nama_ukuran']; ?></p>
+
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <hr>
+
+
+
+
         </div>
-
+        <h4 class="font-weight-bold">Deskripsi Produk</h4>
+        <p class="lead"><?= $p["deskripsi_produk"]; ?></p>
     </div>
 
     <?= $this->endSection(); ?>

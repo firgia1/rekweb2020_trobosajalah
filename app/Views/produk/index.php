@@ -73,7 +73,6 @@
                             <td>
 
                                 <ul class="list-group">
-                                    <li class="list-group-item"><a href="/produk/" class="alarm btn btn-success">Detail</a></li>
                                     <li class="list-group-item"><a href="/produk/edit/<?= $p['id_produk']; ?> " class="alarm btn btn-warning">Edit</a></li>
 
                                     <li class="list-group-item">

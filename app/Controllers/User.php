@@ -3,17 +3,20 @@
 namespace App\Controllers;
 
 use JenisModel;
+use KategoriModel;
 use ProdukModel;
 
 class User extends BaseController
 {
     protected $produkModel;
     protected $jenisModel;
+    protected $kategoriModel;
 
     public function __construct()
     {
         $this->produkModel = new ProdukModel();
         $this->jenisModel = new JenisModel();
+        $this->kategoriModel = new KategoriModel();
     }
 
     public function index()
@@ -44,11 +47,13 @@ class User extends BaseController
         }
 
         $jenis = $this->jenisModel->getAll();
+        $kategori = $this->kategoriModel->getAll();
 
         $data = [
             'title' => "Home",
             'produk' => $produk,
-            'jenis' => $jenis
+            'jenis' => $jenis,
+            'kategori' => $kategori
         ];
 
         return view('user/home', $data);

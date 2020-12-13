@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
     <div class="container">
         <a class="navbar-brand" href="/user/">Tugas Besar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
 
-                <!-- <?php if (isset($jenis)) : ?>
+                <?php if (isset($jenis)) : ?>
                     <ul class="navbar-nav">
                         <?php foreach ($jenis as $j) : ?>
                             <li class="nav-item">
@@ -17,7 +16,7 @@
                             </li>
                         <?php endforeach; ?>
                     </ul>
-                <?php endif; ?> -->
+                <?php endif; ?>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,16 +44,21 @@
 
                 </form>
             </ul>
-
-
         </div>
+
         <div class="row">
-            <div class="col-md-5">
-                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Login</button>
-            </div>
-            <div class="col-md-5">
-                <button type="button" class="btn btn-secondary">Daftar</button>
-            </div>
+            <?php if (logged_in()) : ?>
+                <div class="col-md-5">
+                    <a class="btn btn-secondary" type="submit" href="/logout">Logout</a>
+                </div>
+            <?php else : ?>
+                <div class="col-md-5">
+                    <a class="btn btn-outline-secondary my-2 my-sm-0" type="submit" href="/login">Login</a>
+                </div>
+                <div class="col-md-5">
+                    <a type="button" class="btn btn-secondary" href="/register">Daftar</a>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </nav>

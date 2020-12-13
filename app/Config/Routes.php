@@ -38,6 +38,7 @@ $routes->get('/produk/edit/(:segment)', 'Produk::edit/$1');
 $routes->delete('/produk/(:num)', 'Produk::delete/$1');
 
 $routes->get('/produk/(:any)', 'Produk::detail/$1');
+$routes->get('/pembelian/(:num)', 'User::pembelian/$1');
 
 /**
  * --------------------------------------------------------------------

@@ -71,13 +71,21 @@ class User extends BaseController
         return view('user/keranjang', $data);
     }
 
-    public function pembayaran()
+    public function pembelian($id)
     {
+        if (!logged_in()) {
+            return redirect()->to("/");
+        }
         $data = [
-            'title' => "Pembayaran"
+            'title' => "Pembelian"
         ];
 
-        return view('user/pembayaran', $data);
+        return view('user/Pembelian', $data);
+    }
+
+    public function beli()
+    {
+        dd($this->request->getVar());
     }
 
     public function pesanan()

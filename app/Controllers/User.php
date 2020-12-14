@@ -2,21 +2,27 @@
 
 namespace App\Controllers;
 
+use BankModel;
 use JenisModel;
 use KategoriModel;
 use ProdukModel;
+use UkuranModel;
 
 class User extends BaseController
 {
     protected $produkModel;
     protected $jenisModel;
     protected $kategoriModel;
+    protected $ukuranModel;
+    protected $bankModel;
 
     public function __construct()
     {
         $this->produkModel = new ProdukModel();
         $this->jenisModel = new JenisModel();
         $this->kategoriModel = new KategoriModel();
+        $this->ukuranModel = new UkuranModel();
+        $this->bankModel = new BankModel();
     }
 
     public function index()
@@ -76,11 +82,25 @@ class User extends BaseController
         if (!logged_in()) {
             return redirect()->to("/");
         }
+
+        $kota = get_CURL("https://api.rajaongkir.com/starter/city?key=a93c1d9454cfef95ee973c56bae97e3d");
+        $produk = $this->produkModel->getById($id);
+        $ukuran = $this->ukuranModel->getAll();
+        $bank = $this->bankModel->getAll();
+
         $data = [
-            'title' => "Pembelian"
+            'title' => "Pembelian",
+            'produk' => $produk[0],
+            'ukuran' => $ukuran,
+            'kota' => $kota['rajaongkir']['results'],
+            'bank' => $bank
         ];
 
-        return view('user/Pembelian', $data);
+        // cek jika tidak ada kemungkinan karena user mengarang ID di url
+        if ($produk == null) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+        return view('user/pembelian', $data);
     }
 
     public function beli()

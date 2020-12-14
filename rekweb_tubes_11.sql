@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2020 at 04:13 PM
+-- Generation Time: Dec 14, 2020 at 05:25 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -104,7 +104,9 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (12, '::1', 'testing@gmail.com', 3, '2020-12-13 02:23:05', 1),
 (13, '::1', 'testing@gmail.com', 3, '2020-12-13 02:52:00', 1),
 (14, '::1', 'giga@gmail.com', 4, '2020-12-13 02:52:55', 1),
-(15, '::1', 'testing@gmail.com', 3, '2020-12-13 03:06:37', 1);
+(15, '::1', 'testing@gmail.com', 3, '2020-12-13 03:06:37', 1),
+(16, '::1', 'testing@gmail.com', 3, '2020-12-13 19:27:18', 1),
+(17, '::1', 'testing@gmail.com', 3, '2020-12-13 21:50:24', 1);
 
 -- --------------------------------------------------------
 
@@ -170,6 +172,16 @@ CREATE TABLE `bank` (
   `nama_bank` varchar(50) NOT NULL,
   `biaya_admin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bank`
+--
+
+INSERT INTO `bank` (`id_bank`, `gambar`, `nama_bank`, `biaya_admin`) VALUES
+(1, 'bca.jpg', 'BCA', 2500),
+(2, 'mandiri.jpg', 'Mandiri', 2000),
+(3, 'bni.jpg', 'BNI', 1500),
+(4, 'bjb.jpg', 'BJB', 2500);
 
 -- --------------------------------------------------------
 
@@ -272,7 +284,8 @@ INSERT INTO `produk` (`id_produk`, `nama_produk`, `deskripsi_produk`, `stok_prod
 (1, 'kemeja panjang', 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\r\n\r\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', 100, 0, 0, 1),
 (3, 'gaun putih', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.', 45, 0, 0, 1),
 (4, 'Using color to add meaning only provides a visual indication, which will not be conveyed to users of', 'Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies – such as screen readers. Ensure that information denoted by the color is either obvious from the content itself (e.g. the visible text)', 123, 0, 0, 3),
-(5, 'vest', 'vest dong', 12, 0, 0, 7);
+(5, 'vest', 'vest dong', 12, 0, 0, 7),
+(6, 'testingh', 'testing gambarh', 12, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -295,7 +308,8 @@ INSERT INTO `produk_diskon` (`id_produk`, `diskon_persen`, `total_produk`) VALUE
 (1, 20, 10),
 (3, 0, NULL),
 (4, 12, 200),
-(5, 0, 12);
+(5, 0, 12),
+(6, 12, 10);
 
 -- --------------------------------------------------------
 
@@ -321,7 +335,8 @@ INSERT INTO `produk_gambar` (`id_produk`, `gambar_1`, `gambar_2`, `gambar_3`, `g
 (1, 'gambar_1_1607771944_1addb13da1f7d6dd6e1a.jpg', 'gambar_2_1607771944_61a77a8fe5124a9695a0.jpg', NULL, NULL, NULL),
 (3, 'gambar_1_1607772133_e5926899778c115f96ec.jpg', 'gambar_2_1607772133_bd119176ae8dfb361dfb.jpg', NULL, NULL, NULL),
 (4, 'gambar_1_1607778624_b3b660e339f528b41d8b.jpg', NULL, NULL, NULL, NULL),
-(5, 'gambar_1_1607850467_9bb4c8c4437f8736cc93.jpg', 'gambar_2_1607850450_3e931d7584ca4adf9527.jpg', NULL, NULL, NULL);
+(5, 'gambar_1_1607850467_9bb4c8c4437f8736cc93.jpg', 'gambar_2_1607850450_3e931d7584ca4adf9527.jpg', NULL, NULL, NULL),
+(6, 'gambar_1_1607919703_62a7c103e69eb32b59d5.jpg', 'gambar_2_1607919671_a629d0cb2e0f0e009ac6.jpg', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -345,7 +360,8 @@ INSERT INTO `produk_harga` (`id_produk`, `harga_normal`, `harga_diskon`, `harga_
 (1, 200000, 160000, 160000),
 (3, 100000, NULL, 100000),
 (4, 50000, 44000, 44000),
-(5, 90000, 90000, 90000);
+(5, 90000, 90000, 90000),
+(6, 30000, 26400, 26400);
 
 -- --------------------------------------------------------
 
@@ -369,7 +385,8 @@ INSERT INTO `produk_kategori` (`id_produk`, `id_kategori_1`, `id_kategori_2`, `i
 (1, 1, 2, 4),
 (3, 1, 2, 3),
 (4, 1, 2, 4),
-(5, 1, 2, 3);
+(5, 1, 2, 3),
+(6, 1, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -396,6 +413,7 @@ INSERT INTO `produk_rating` (`id_produk`, `bintang_1`, `bintang_2`, `bintang_3`,
 (3, 0, 0, 0, 0, 0, 0),
 (4, 0, 0, 0, 0, 0, 0),
 (5, 0, 0, 0, 0, 0, 0),
+(6, 0, 0, 0, 0, 0, 0),
 (117, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
@@ -423,7 +441,8 @@ INSERT INTO `produk_ukuran` (`id_produk`, `id_ukuran_1`, `id_ukuran_2`, `id_ukur
 (1, 1, 2, 4, 5, NULL, NULL),
 (3, 1, 3, 6, NULL, NULL, NULL),
 (4, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, NULL, NULL, NULL, NULL, NULL, NULL);
+(5, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 4, 5, 6, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -534,6 +553,7 @@ CREATE TABLE `user_pesanan` (
 
 CREATE TABLE `user_pesanan_alamat` (
   `id_pesanan` int(9) NOT NULL,
+  `id_kota` int(9) NOT NULL,
   `jalan` varchar(255) NOT NULL,
   `kota` varchar(50) NOT NULL,
   `provinsi` varchar(50) NOT NULL
@@ -777,7 +797,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -801,7 +821,7 @@ ALTER TABLE `auth_tokens`
 -- AUTO_INCREMENT for table `bank`
 --
 ALTER TABLE `bank`
-  MODIFY `id_bank` int(9) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_bank` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `jenis`
@@ -825,7 +845,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_produk` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `status_pemesanan`

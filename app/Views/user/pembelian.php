@@ -173,31 +173,24 @@ $u_2 = $ukuran;
                         <label class="col-3 col-form-label" for="kurir">Kurir</label>
                         <div class="col-9 input-group">
                             <select class="custom-select" id="kurir" name="kurir">
-                                <option value="pos">Pos</option>
+                                <option value="pilih">pilih kurir</option>
                                 <option value="tiki">Tiki</option>
                                 <option value="jne">Jne</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-3 col-form-label" for="layanan">Layanan</label>
-                        <div class="col-9 input-group">
-                            <select class="custom-select" id="layanan" name="layanan">
-                                <option value="null" selected>Pilih Layanan</option><span class="border-bottom"></span>
-                                <option value="0">Paket Kilat Khusus (2-4 hari)</option>
-                                <option value="1">Reguler (2-3 hari)</option>
-                                <option value="2">Oke (2-5 hari)</option>
-                            </select>
-                        </div>
+                    <div class="form-group row" id="layanan-kurir">
+
                     </div>
 
                     <div class="form-group row">
                         <label class="col-8 col-form-label"></label>
                         <div class="col input-group">
                             <fieldset disabled>
-                                <input type="text" class="form-control" placeholder="RP. 30,000">
-                            </fieldset>
+                                <input type="text" class="form-control" value="RP. 30,000" id="biaya_kurir_text" name="biaya_kurir_text">
+
+                            </fieldset> <input type="hidden" class="form-control" value="RP. 30,000" id="biaya_kurir_value" name="biaya_kurir_value">
                         </div>
                     </div>
                 </div>
@@ -241,6 +234,8 @@ $u_2 = $ukuran;
         </div>
     </form>
 </div>
+
+
 
 
 <?= $this->endSection(); ?>

@@ -52,65 +52,61 @@
         <?php if ($produk == null) : ?>
             <h1>Data Tidak Di temukan</h1>
         <?php else : ?>
+            <?php foreach ($produk as $data) : ?>
 
-            <?php for ($jj = 0; $jj < 10; $jj++) : ?>
-
-                <?php foreach ($produk as $data) : ?>
-
-                    <?php
-                    $p = $data["produk"];
-                    $h = $data["harga"];
-                    $d = $data["diskon"];
-                    $r = $data["rating"];
-                    ?>
+                <?php
+                $p = $data["produk"];
+                $h = $data["harga"];
+                $d = $data["diskon"];
+                $r = $data["rating"];
+                ?>
 
 
-                    <div class="col-md-3 mt-5"> <a class="nav-link" href="/produk/<?= $p['id_produk']; ?>">
-                            <div class="card">
-                                <img src="/img/<?= $p["gambar"]; ?>" class="card-img-top">
-                                <div class="card-body">
+                <div class="col-md-3 mt-5"> <a class="nav-link" href="/produk/<?= $p['id_produk']; ?>">
+                        <div class="card">
+                            <img src="/img/<?= $p["gambar"]; ?>" class="card-img-top">
+                            <div class="card-body">
+                                <div class="row">
+                                    <p class="col-12 text-truncate text-dark card-title primary"><?= $p["nama_produk"]; ?></p>
+                                </div>
+
+                                <?php if ($d['diskon_persen'] != null || $d['diskon_persen'] > 0) : ?>
                                     <div class="row">
-                                        <p class="col-12 text-truncate text-dark card-title primary"><?= $p["nama_produk"]; ?></p>
-                                    </div>
-
-                                    <?php if ($d['diskon_persen'] != null || $d['diskon_persen'] > 0) : ?>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <p class="badge badge-success"><?= $d["diskon_persen"]; ?> %</p>
-                                            </div>
-
-                                            <div class="col-md-9">
-                                                <p class="text-secondary font-weight-light"><s> Rp. <?= number_format($h["harga_normal"]); ?></s></p>
-                                            </div>
-
+                                        <div class="col-md-3">
+                                            <p class="badge badge-success"><?= $d["diskon_persen"]; ?> %</p>
                                         </div>
 
-                                    <?php endif; ?>
-
-                                    <h6 class="text-dark card-text font-weight-bold">Rp. <?= number_format($h["harga_saat_ini"]); ?></h6>
-
-                                    <div class="row">
-                                        <div class="col-md-8">
-
-
-                                            <?php for ($i = 0; $i < 5; $i++) : ?>
-                                                <img src="/assets/img/<?= ($r['total_rating'] > $i) ? 'star_true.png' : 'star_false.png'; ?>" width="15">
-                                            <?php endfor; ?>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <p class="text-right text-secondary font-weight-light">(<?= $p['total_pesanan']; ?>)</p>
+                                        <div class="col-md-9">
+                                            <p class="text-secondary font-weight-light"><s> Rp. <?= number_format($h["harga_normal"]); ?></s></p>
                                         </div>
 
                                     </div>
+
+                                <?php endif; ?>
+
+                                <h6 class="text-dark card-text font-weight-bold">Rp. <?= number_format($h["harga_saat_ini"]); ?></h6>
+
+                                <div class="row">
+                                    <div class="col-md-8">
+
+
+                                        <?php for ($i = 0; $i < 5; $i++) : ?>
+                                            <img src="/assets/img/<?= ($r['total_rating'] > $i) ? 'star_true.png' : 'star_false.png'; ?>" width="15">
+                                        <?php endfor; ?>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <p class="text-right text-secondary font-weight-light">(<?= $p['total_pesanan']; ?>)</p>
+                                    </div>
+
                                 </div>
                             </div>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
+                </div>
 
 
-                <?php endforeach; ?>
-            <?php endfor; ?>
+            <?php endforeach; ?>
         <?php endif ?>
     </div>
 </div>

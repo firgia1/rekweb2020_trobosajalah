@@ -15,6 +15,7 @@ class User extends BaseController
     protected $kategoriModel;
     protected $ukuranModel;
     protected $bankModel;
+    protected $kurirController;
 
     public function __construct()
     {
@@ -23,6 +24,7 @@ class User extends BaseController
         $this->kategoriModel = new KategoriModel();
         $this->ukuranModel = new UkuranModel();
         $this->bankModel = new BankModel();
+        $this->kurirController = new kurir();
     }
 
     public function index()
@@ -83,7 +85,7 @@ class User extends BaseController
             return redirect()->to("/");
         }
 
-        $kota = get_CURL("https://api.rajaongkir.com/starter/city?key=a93c1d9454cfef95ee973c56bae97e3d");
+        $kota = $this->kurirController->requestAllCity();
         $produk = $this->produkModel->getById($id);
         $ukuran = $this->ukuranModel->getAll();
         $bank = $this->bankModel->getAll();

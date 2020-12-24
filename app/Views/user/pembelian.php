@@ -70,7 +70,7 @@ $u_2 = $ukuran;
                     <div class="form-group row">
                         <label for="Jumlah" class="col-sm-3 col-form-label">Jumlah</label>
                         <div class="col-sm-2">
-                            <input type="number" class="form-control" id="jumlah" name="jumlah" value="1">
+                            <input type="number" class="form-control" id="jumlah" name="jumlah" value="1" onchange="generateHargaProduk(<?= $h['harga_saat_ini']; ?>)">
                         </div>
                         <div class="col-sm-7">
                             <h4>
@@ -108,8 +108,9 @@ $u_2 = $ukuran;
                         <label class="col-9 col-form-label"></label>
                         <div class="col input-group">
                             <fieldset disabled>
-                                <input type="text" class="form-control" placeholder="RP. 30,000">
+                                <input type="text" class="form-control" id="harga_produk_text" placeholder="Rp. <?= number_format($h["harga_saat_ini"]); ?>" name="harga_produk_text">
                             </fieldset>
+                            <input type="hidden" class="form-control" value="<?= $h["harga_saat_ini"]; ?>" id="harga_produk_value" name="harga_produk_value">
                         </div>
                     </div>
                 </div>
@@ -188,9 +189,9 @@ $u_2 = $ukuran;
                         <label class="col-8 col-form-label"></label>
                         <div class="col input-group">
                             <fieldset disabled>
-                                <input type="text" class="form-control" value="RP. 30,000" id="biaya_kurir_text" name="biaya_kurir_text">
-
-                            </fieldset> <input type="hidden" class="form-control" value="RP. 30,000" id="biaya_kurir_value" name="biaya_kurir_value">
+                                <input type="text" class="form-control" value="RP. 0" id="biaya_kurir_text" name="biaya_kurir_text">
+                            </fieldset>
+                            <input type="hidden" class="form-control" value="0" id="biaya_kurir_value" name="biaya_kurir_value">
                         </div>
                     </div>
                 </div>
@@ -216,8 +217,9 @@ $u_2 = $ukuran;
                         <label class="col-8 col-form-label"></label>
                         <div class="col input-group">
                             <fieldset disabled>
-                                <input type="text" class="form-control" placeholder="RP. 300,000">
+                                <input type="text" class="form-control" placeholder="Rp. <?= number_format($bank[0]['biaya_admin']); ?>" id="biaya_admin_bank_text" name="biaya_admin_bank_text">
                             </fieldset>
+                            <input type="hidden" class="form-control" value="<?= $bank[0]['biaya_admin']; ?>" id="biaya_admin_bank_value" name="biaya_admin_bank_value">
                         </div>
                         <p class="mt-2 container font-weight-light text-center">
                             kode transfer pembayaran akan di kirim ketika selesai melakukan konfirmasi

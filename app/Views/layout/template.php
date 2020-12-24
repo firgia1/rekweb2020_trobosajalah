@@ -109,6 +109,13 @@
         function formatNumber(num) {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
+
+        function generateHargaProduk(_harga) {
+            var jumlah = $('#jumlah').val();
+            var hasil = _harga * jumlah;
+            $('#harga_produk_text').val("Rp. " + formatNumber(hasil));
+            $('#harga_produk_value').val(hasil);
+        }
     </script>
 </body>
 

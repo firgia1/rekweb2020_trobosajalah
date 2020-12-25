@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use BankModel;
+use CodeIgniter\Database\Database;
 use JenisModel;
 use KategoriModel;
+use PesananModel;
 use ProdukModel;
 use UkuranModel;
 
@@ -15,6 +17,7 @@ class User extends BaseController
     protected $kategoriModel;
     protected $ukuranModel;
     protected $bankModel;
+    protected $pesananModel;
     protected $kurirController;
 
     public function __construct()
@@ -24,7 +27,8 @@ class User extends BaseController
         $this->kategoriModel = new KategoriModel();
         $this->ukuranModel = new UkuranModel();
         $this->bankModel = new BankModel();
-        $this->kurirController = new kurir();
+        $this->pesananModel = new PesananModel();
+        $this->kurirController = new Kurir();
     }
 
     public function index()
@@ -95,7 +99,8 @@ class User extends BaseController
             'produk' => $produk[0],
             'ukuran' => $ukuran,
             'kota' => $kota['rajaongkir']['results'],
-            'bank' => $bank
+            'bank' => $bank,
+            'validation' => \Config\Services::validation()
         ];
 
         // cek jika tidak ada kemungkinan karena user mengarang ID di url
@@ -107,7 +112,60 @@ class User extends BaseController
 
     public function beli()
     {
-        dd($this->request->getVar());
+        $id = $this->request->getVar('id_produk');
+        if (!$this->validate([
+            'nama'     => 'required',
+            'no_hp' => 'required',
+            'bank'     => 'required',
+            'jumlah'    => 'required',
+            'catatan'    => 'required',
+            'kota' => 'required',
+            'kurir' => 'required',
+            'layanan_kurir_name' => 'required',
+            'jalan' => 'required',
+        ])) {
+            // jika id di isi kembalikan lagi ke halaman edit
+
+            return redirect()->to("/pembelian/$id")->withInput();
+        }
+
+        $dataKota = $this->kurirController->requestCityById($this->request->getVar('kota'));
+
+        $dataKota = $dataKota['rajaongkir']['results'];
+        $pesanan = [
+            'id_user' => $this->request->getVar('id_user'),
+            'id_produk' => $this->request->getVar('id_produk'),
+            'tanggal_pemesanan' => date('Y-m-d'),
+            'nama_penerima' => $this->request->getVar('nama'),
+            'no_hp' => $this->request->getVar('no_hp'),
+            'total_pembayaran' => ($this->request->getVar('harga_produk_value') + $this->request->getVar('biaya_kurir_value')),
+            'id_status_pemesanan' => 1,
+            'id_bank' => $this->request->getVar('bank'),
+            'jumlah' => $this->request->getVar('jumlah'),
+            'catatan' => $this->request->getVar('catatan')
+        ];
+
+        $kurir = [
+            'nama_kurir' => $this->request->getVar('kurir'),
+            'layanan_kurir' => $this->request->getVar('layanan_kurir_name'),
+            'biaya' => $this->request->getVar('biaya_kurir_value')
+        ];
+
+        $alamat = [
+            'id_kota' => $dataKota['city_id'],
+            'jalan' => $this->request->getVar('jalan'),
+            'kota' => $dataKota['city_name'],
+            'provinsi' => $dataKota['province'],
+        ];
+
+        $data = [
+            'pesanan' => $pesanan,
+            'kurir' => $kurir,
+            'alamat' => $alamat
+        ];
+        $this->pesananModel->insertPesanan($data);
+        session()->setFlashdata('pesan', 'produk berhasil di beli');
+        return redirect()->to("/pembelian/$id");
     }
 
     public function pesanan()

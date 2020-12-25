@@ -257,6 +257,9 @@
                     <div class="form-group row">
                         <div class="col-sm-4">Ukuran</div>
                         <div class="col-sm-8">
+                            <?php if ($validation->hasError('ukuran')) : ?>
+                                <p class="text-danger"> <?= $validation->getError('ukuran'); ?></p>
+                            <?php endif; ?>
                             <?php $i = 0;
                             foreach ($ukuran as $k) :
 

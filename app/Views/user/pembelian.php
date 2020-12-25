@@ -12,9 +12,19 @@ $u_2 = $ukuran;
 ?>
 
 <div class="container">
-
+    <?php if (session()->getFlashdata('pesan')) : ?>
+        <div class="alert alert-success" role="alert">
+            <?= session()->getFlashdata('pesan'); ?>
+        </div>
+    <?php endif; ?>
     <form action="/user/beli" method="POST" enctype="multipart/form-data">
         <?= csrf_field(); ?>
+        <input type="hidden" class="form-control" value="<?= $h["harga_saat_ini"]; ?>" id="harga_produk_value" name="harga_produk_value">
+        <input type="hidden" class="form-control" value="0" id="biaya_kurir_value" name="biaya_kurir_value">
+        <input type="hidden" class="form-control" value="" id="layanan_kurir_name" name="layanan_kurir_name">
+        <input type="hidden" class="form-control" value="<?= $p['id_produk']; ?>" id="id_produk" name="id_produk">
+        <input type="hidden" class="form-control" value="<?= user_id(); ?>" id="id_user" name="id_user">
+
 
         <div class="col mt-5">
             <h3>Pembelian</h3>
@@ -70,7 +80,7 @@ $u_2 = $ukuran;
                     <div class="form-group row">
                         <label for="Jumlah" class="col-sm-3 col-form-label">Jumlah</label>
                         <div class="col-sm-2">
-                            <input type="number" class="form-control" id="jumlah" name="jumlah" value="1" onchange="generateHargaProduk(<?= $h['harga_saat_ini']; ?>)">
+                            <input type="number" class="form-control <?= ($validation->hasError('jumlah')) ? 'is-invalid' : ''; ?>" id="jumlah" name="jumlah" value="1" onchange="generateHargaProduk(<?= $h['harga_saat_ini']; ?>, <?= $p['stok_produk']; ?>)">
                         </div>
                         <div class="col-sm-7">
                             <h4>
@@ -82,7 +92,7 @@ $u_2 = $ukuran;
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="catatan">Catatan Pesanan</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" id="catatan" rows="5" name="catatan" placeholder="contoh: aku mau yang ukuran XL 2 pcs, yang ukuran M 3 pcs"></textarea>
+                            <textarea class="form-control <?= ($validation->hasError('catatan')) ? 'is-invalid' : ''; ?>" id="catatan" rows="5" name="catatan" placeholder="contoh: aku mau yang ukuran XL 2 pcs, yang ukuran M 3 pcs"><?= old('catatan'); ?></textarea>
                         </div>
                     </div>
 
@@ -110,7 +120,7 @@ $u_2 = $ukuran;
                             <fieldset disabled>
                                 <input type="text" class="form-control" id="harga_produk_text" placeholder="Rp. <?= number_format($h["harga_saat_ini"]); ?>" name="harga_produk_text">
                             </fieldset>
-                            <input type="hidden" class="form-control" value="<?= $h["harga_saat_ini"]; ?>" id="harga_produk_value" name="harga_produk_value">
+
                         </div>
                     </div>
                 </div>
@@ -125,14 +135,14 @@ $u_2 = $ukuran;
                     <div class="form-group row">
                         <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="contoh: asep codet">
+                            <input type="text" class="form-control <?= ($validation->hasError('nama')) ? 'is-invalid' : ''; ?>" id="nama" name="nama" placeholder="contoh: asep codet" value="<?= old('nama'); ?>">
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label for="no_hp" class="col-sm-2 col-form-label">No. hp</label>
                         <div class="col-sm-10">
-                            <input type="number" class="form-control" id="no_hp" name="no_hp" placeholder="contoh: 082112345678">
+                            <input type="number" class="form-control <?= ($validation->hasError('no_hp')) ? 'is-invalid' : ''; ?>" id="no_hp" name="no_hp" placeholder="contoh: 082112345678" value="<?= old('no_hp'); ?>">
                         </div>
                     </div>
                 </div>
@@ -145,14 +155,14 @@ $u_2 = $ukuran;
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label" for="jalan">Jalan</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" id="jalan" rows="1" name="jalan" placeholder="contoh: jln tol no 12 kel. A, kec. B"></textarea>
+                            <textarea class="form-control <?= ($validation->hasError('jalan')) ? 'is-invalid' : ''; ?>" id="jalan" rows="1" name="jalan" placeholder="contoh: jln tol no 12 kel. A, kec. B"><?= old('jalan'); ?></textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-2 col-form-label" for="kota">Kota</label>
                         <div class="col-10 input-group">
-                            <select class="custom-select" id="kota" name="kota">
+                            <select class="custom-select <?= ($validation->hasError('kota')) ? 'is-invalid' : ''; ?>" id="kota" name="kota">
                                 <?php foreach ($kota as $k) : ?>
                                     <option value="<?= $k['city_id']; ?>"><?= $k['city_name']; ?></option>
                                 <?php endforeach; ?>
@@ -173,7 +183,7 @@ $u_2 = $ukuran;
                     <div class="form-group row">
                         <label class="col-3 col-form-label" for="kurir">Kurir</label>
                         <div class="col-9 input-group">
-                            <select class="custom-select" id="kurir" name="kurir">
+                            <select class="custom-select <?= ($validation->hasError('layanan_kurir_name')) ? 'is-invalid' : ''; ?>" id="kurir" name="kurir">
                                 <option value="pilih">pilih kurir</option>
                                 <option value="tiki">Tiki</option>
                                 <option value="jne">Jne</option>
@@ -181,7 +191,7 @@ $u_2 = $ukuran;
                         </div>
                     </div>
 
-                    <div class="form-group row" id="layanan-kurir">
+                    <div class="form-group row" id="layanan_kurir">
 
                     </div>
 
@@ -191,7 +201,7 @@ $u_2 = $ukuran;
                             <fieldset disabled>
                                 <input type="text" class="form-control" value="RP. 0" id="biaya_kurir_text" name="biaya_kurir_text">
                             </fieldset>
-                            <input type="hidden" class="form-control" value="0" id="biaya_kurir_value" name="biaya_kurir_value">
+
                         </div>
                     </div>
                 </div>
@@ -215,12 +225,7 @@ $u_2 = $ukuran;
 
                     <div class="form-group row">
                         <label class="col-8 col-form-label"></label>
-                        <div class="col input-group">
-                            <fieldset disabled>
-                                <input type="text" class="form-control" placeholder="Rp. <?= number_format($bank[0]['biaya_admin']); ?>" id="biaya_admin_bank_text" name="biaya_admin_bank_text">
-                            </fieldset>
-                            <input type="hidden" class="form-control" value="<?= $bank[0]['biaya_admin']; ?>" id="biaya_admin_bank_value" name="biaya_admin_bank_value">
-                        </div>
+
                         <p class="mt-2 container font-weight-light text-center">
                             kode transfer pembayaran akan di kirim ketika selesai melakukan konfirmasi
                         </p>
@@ -228,6 +233,8 @@ $u_2 = $ukuran;
                 </div>
             </div>
         </div>
+
+
 
         <div class="form-group row">
             <div class="col-sm-10">

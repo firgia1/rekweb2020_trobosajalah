@@ -132,6 +132,7 @@ class Produk extends BaseController
                 'harga'    => 'required',
                 'jenis'    => 'required',
                 'kategori' => 'required',
+                'ukuran' => 'required'
 
             ])) {
                 // jika id di isi kembalikan lagi ke halaman edit
@@ -145,6 +146,7 @@ class Produk extends BaseController
                 'harga'    => 'required',
                 'jenis'    => 'required',
                 'kategori' => 'required',
+                'ukuran' => 'required',
                 'gambar_1' => [
                     'rules' => 'uploaded[gambar_1]|max_size[gambar_1,1024]|is_image[gambar_1]|mime_in[gambar_1,image/jpg,image/jpeg,image/png]',
                     'errors' => [

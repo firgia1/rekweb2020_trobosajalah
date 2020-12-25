@@ -51,11 +51,11 @@
         $(document).ready(function() {
             $('#kurir').change(getLayanan);
             $('#kota').change(getLayanan);
-            $('#layanan-kurir').on('change', '#layanan-kurir-selected', getBiaya);
+            $('#layanan_kurir').on('change', '#layanan_kurir_selected', getBiaya);
         });
 
         function getLayanan() {
-            $('#layanan-kurir').html('');
+            $('#layanan_kurir').html('');
             $('#biaya_kurir_text').val("Rp. 0");
             $('#biaya_kurir_value').val(0);
 
@@ -77,9 +77,9 @@
                         let costs = response.rajaongkir.results[0].costs;
                         console.log(costs);
 
-                        var start = `<label class="col-3 col-form-label" for="layanan-kurir-selected">Layanan</label>
+                        var start = `<label class="col-3 col-form-label" for="layanan_kurir_selected">Layanan</label>
                                             <div class="col-9 input-group">
-                                                <select class="custom-select" id="layanan-kurir-selected" name="layanan-kurir-selected">`;
+                                                <select class="custom-select" id="layanan_kurir_selected" onChange="getLayananName(this);">`;
                         var end = `</select> </div>`;
                         var option;
                         $.each(costs, function(i, data) {
@@ -92,8 +92,9 @@
                         let biaya = costs[0].cost[0].value;
                         $('#biaya_kurir_text').val("Rp. " + formatNumber(biaya));
                         $('#biaya_kurir_value').val(biaya);
+                        $('#layanan_kurir_name').val(costs[0].service);
 
-                        $('#layanan-kurir').html(start + option + end);
+                        $('#layanan_kurir').html(start + option + end);
 
                     }
                 }
@@ -101,17 +102,28 @@
         }
 
         function getBiaya() {
-            var biaya = $('#layanan-kurir-selected').val();
+            var biaya = $('#layanan_kurir_selected').val();
             $('#biaya_kurir_text').val("Rp. " + formatNumber(biaya));
             $('#biaya_kurir_value').val(biaya);
+        }
+
+        function getLayananName(_layanan) {
+            $('#layanan_kurir_name').val(_layanan.options[_layanan.selectedIndex].text);
         }
 
         function formatNumber(num) {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
 
-        function generateHargaProduk(_harga) {
+        function generateHargaProduk(_harga, _stok) {
             var jumlah = $('#jumlah').val();
+            if (jumlah < 1) {
+                jumlah = 1;
+                $('#jumlah').val(jumlah);
+            } else if (jumlah > _stok) {
+                jumlah = _stok;
+                $('#jumlah').val(jumlah);
+            }
             var hasil = _harga * jumlah;
             $('#harga_produk_text').val("Rp. " + formatNumber(hasil));
             $('#harga_produk_value').val(hasil);

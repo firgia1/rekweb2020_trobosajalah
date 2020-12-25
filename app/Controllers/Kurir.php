@@ -27,4 +27,9 @@ class Kurir extends BaseController
     {
         return get_CURL("https://api.rajaongkir.com/starter/city?key=a93c1d9454cfef95ee973c56bae97e3d");
     }
+
+    function requestCityById($id)
+    {
+        return get_CURL("https://api.rajaongkir.com/starter/city?key=a93c1d9454cfef95ee973c56bae97e3d&id=" . $id);
+    }
 }

@@ -156,7 +156,7 @@ $k_2 = $kategori;
 </figure>
 
 <!-- Footer Produk -->
-<?php if (logged_in()) : ?>
+<?php if (logged_in() && in_groups('user')) : ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
 
 

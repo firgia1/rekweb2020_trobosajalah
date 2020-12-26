@@ -322,6 +322,7 @@ class ProdukModel extends Model
             "bintang_3" => 0,
             "bintang_4" => 0,
             "bintang_5" => 0,
+            "total_rating" => 0
         ];
 
 

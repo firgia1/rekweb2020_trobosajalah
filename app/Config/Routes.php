@@ -31,11 +31,17 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
 $routes->get('/', 'User::index');
 
-$routes->get('/produk/create', 'Produk::create');
-$routes->get('/produk/edit/(:segment)', 'Produk::edit/$1');
-$routes->delete('/produk/(:num)', 'Produk::delete/$1');
+
+$routes->get('/produk', 'Produk::index', ['filter' => 'role:admin']);
+$routes->get('/produk/index', 'Produk::index', ['filter' => 'role:admin']);
+$routes->get('/produk/create', 'Produk::create', ['filter' => 'role:admin']);
+$routes->get('/produk/edit/(:segment)', 'Produk::edit/$1', ['filter' => 'role:admin']);
+
+
+$routes->delete('/produk/(:num)', 'Produk::delete/$1', ['filter' => 'role:admin']);
 
 $routes->get('/produk/(:any)', 'Produk::detail/$1');
 $routes->get('/pembelian/(:num)', 'User::pembelian/$1');

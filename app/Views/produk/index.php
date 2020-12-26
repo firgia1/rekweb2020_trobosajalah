@@ -24,7 +24,16 @@
 
     <div class="row">
         <div class="col">
-            <a href="/produk/create" class="btn btn-primary mt-3">Tambah Data</a>
+            <div class="row">
+                <div class="col-md">
+                    <a href="/produk/create" class="btn btn-primary mt-3">Tambah Data</a>
+                </div>
+                <div class="col-md">
+                    <a class="btn btn-secondary mt-3" href="/logout">Logout</a>
+                </div>
+            </div>
+
+
             <h3>Daftar Komik</h3>
 
             <table class="table">
@@ -77,7 +86,7 @@
 
                                 <ul class="list-group">
                                     <li class="list-group-item"><a href="/produk/edit/<?= $p['id_produk']; ?> " class="alarm btn btn-warning">Edit</a></li>
-
+                                    <li class="list-group-item"><a href="/produk/<?= $p['id_produk']; ?> " class="alarm btn btn-primary">Detail</a></li>
                                     <li class="list-group-item">
                                         <form action="/produk/<?= $p['id_produk']; ?>" method="POST">
                                             <?= csrf_field(); ?>

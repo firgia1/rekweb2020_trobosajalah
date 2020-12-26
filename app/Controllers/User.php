@@ -19,6 +19,7 @@ class User extends BaseController
     protected $bankModel;
     protected $pesananModel;
     protected $kurirController;
+    protected $produkController;
 
     public function __construct()
     {
@@ -29,10 +30,14 @@ class User extends BaseController
         $this->bankModel = new BankModel();
         $this->pesananModel = new PesananModel();
         $this->kurirController = new Kurir();
+        $this->produkController = new Produk();
     }
 
     public function index()
     {
+        if (in_groups('admin')) {
+            return $this->produkController->index();
+        }
         return $this->home();
     }
 
@@ -85,6 +90,9 @@ class User extends BaseController
 
     public function pembelian($id)
     {
+        if (in_groups('admin')) {
+            return $this->produkController->index();
+        }
         if (!logged_in()) {
             return redirect()->to("/");
         }
@@ -112,6 +120,9 @@ class User extends BaseController
 
     public function beli()
     {
+        if (in_groups('admin')) {
+            return $this->produkController->index();
+        }
         $id = $this->request->getVar('id_produk');
         if (!$this->validate([
             'nama'     => 'required',

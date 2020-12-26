@@ -8,6 +8,11 @@ class PesananModel extends Model
     protected $table = 'user_pesanan';
     protected $primaryKey = 'id_pesanan';
 
+    public function getAllPesanan()
+    {
+        return $this->findAll();
+    }
+
     public function insertPesanan($data)
     {
         $insertTablePemesanan = $data['pesanan'];

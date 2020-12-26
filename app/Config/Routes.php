@@ -39,7 +39,7 @@ $routes->get('/produk', 'Produk::index', ['filter' => 'role:admin']);
 $routes->get('/produk/index', 'Produk::index', ['filter' => 'role:admin']);
 $routes->get('/produk/create', 'Produk::create', ['filter' => 'role:admin']);
 $routes->get('/produk/edit/(:segment)', 'Produk::edit/$1', ['filter' => 'role:admin']);
-
+$routes->get('/admin/pesanan', 'Admin::pesanan', ['filter' => 'role:admin']);
 
 $routes->delete('/produk/(:num)', 'Produk::delete/$1', ['filter' => 'role:admin']);
 

@@ -29,8 +29,12 @@
                     <a href="/produk/create" class="btn btn-primary mt-3">Tambah Data</a>
                 </div>
                 <div class="col-md">
+                    <a class="btn btn-primary mt-3" href="/admin/pesanan">Pesanan</a>
+                </div>
+                <div class="col-md">
                     <a class="btn btn-secondary mt-3" href="/logout">Logout</a>
                 </div>
+
             </div>
 
 
